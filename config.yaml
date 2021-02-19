@@ -11,7 +11,7 @@ write_files:
     content: |-
       [service_eth0]
       Type=ethernet
-      IPv4=192.168.2.1/255.255.255.0/192.168.2.1
+      IPv4=192.168.2.120/255.255.255.0/192.168.2.1
       IPv6=off
       Nameservers=192.168.2.2
 
