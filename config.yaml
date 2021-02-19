@@ -1,0 +1,32 @@
+# the hostname you want to use for the Pi
+hostname: k3s-1 
+
+# a public key if you intend to use ssh to connect to the node. This is highly recommended since k3OS has no root user.
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+kIbxif3k4Vq30zSO3NTzfV7QWKYVZCC/tihWRbjXs djx@AM-DJX
+
+# Ethernet config
+write_files:
+  - path: /var/lib/connman/default.config
+    content: |-
+      [service_eth0]
+      Type=ethernet
+      IPv4=192.168.2.1/255.255.255.0/192.168.2.1
+      IPv6=off
+      Nameservers=192.168.2.2
+
+k3OS:
+  ntp_servers:
+    - 0.sensebrown.browntown.local
+    - 1.us.pool.ntp.org
+
+  dns_nameservers:
+    - 192.168.2.2
+    - 8.8.8.8
+    - 1.1.1.1
+
+  # We are going to disable servicelb and traefik and use some alternatives
+  k3s_args:
+    - server
+    - "--cluster-init"
+    - "--disable=traefik,servicelb"
