@@ -1,0 +1,75 @@
+# the hostname you want to use for the Pi
+hostname: k3s-2
+
+# a public key if you intend to use ssh to connect to the node. This is highly recommended since k3OS has no root user.
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+kIbxif3k4Vq30zSO3NTzfV7QWKYVZCC/tihWRbjXs djx@AM-DJX
+
+# Ethernet config
+write_files:
+  - path: /var/lib/connman/default.config
+    content: |-
+      [service_eth0]
+      Type=ethernet
+      IPv4=192.168.2.230/255.255.255.0/192.168.2.1
+      IPv6=off
+      Nameservers=192.168.2.2
+# write_files:
+# - encoding: ""
+#   content: |-
+#     #!/bin/bash
+#     echo hello, local service start
+#   owner: root
+#   path: /etc/local.d/example.start
+#   permissions: '0755'
+# hostname: myhost
+# init_cmd:
+# - "echo hello, init command"
+# boot_cmd:
+# - "echo hello, boot command"
+# run_cmd:
+# - "echo hello, run command"
+
+k3os:
+  data_sources:
+  # - aws
+  - cdrom
+  modules:
+  - kvm
+  - nvme
+  sysctl:
+    kernel.printk: "4 4 1 7"
+    kernel.kptr_restrict: "1"
+  ntp_servers:
+    - 0.sensebrown.browntown.local
+    - 1.us.pool.ntp.org
+  dns_nameservers:
+    - 192.168.2.2
+    - 8.8.8.8
+    - 1.1.1.1
+
+  # wifi:
+  # - name: home
+  #   passphrase: mypassword
+  # - name: nothome
+  #   passphrase: somethingelse
+  
+  password: rancher
+  server_url: https://192.168.2.120:6443
+  # token: TOKEN_VALUE
+  
+  labels:
+    k3os.io/upgrade: true
+    # value: somevalue
+  
+  k3s_args:
+    - agent
+    # - "--cluster-init"
+    # - "--disable=traefik,servicelb"
+  
+  # environment:
+  #   http_proxy: http://myserver
+  #   https_proxy: http://myserver
+  # taints:
+  # - key1=value1:NoSchedule
+  # - key1=value1:NoExecute
