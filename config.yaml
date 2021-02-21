@@ -55,7 +55,6 @@ k3os:
   #   passphrase: somethingelse
   
   password: rancher
-  server_url: https://k3s-1.browntower.local:6443
   token: j01nM3!
   
   labels:
