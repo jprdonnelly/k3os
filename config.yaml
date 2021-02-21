@@ -3,7 +3,7 @@ hostname: k3s-1
 
 # a public key if you intend to use ssh to connect to the node. This is highly recommended since k3OS has no root user.
 ssh_authorized_keys:
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+kIbxif3k4Vq30zSO3NTzfV7QWKYVZCC/tihWRbjXs djx@AM-DJX
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+kIbxif3k4Vq30zSO3NTzfV7QWKYVZCC/tihWRbjXs
 
 # Ethernet config
 write_files:
